@@ -64,7 +64,7 @@ export default function Experience() {
     <section
       id="experience"
       ref={sectionRef}
-      className="section-padding bg-zinc-50/50 dark:bg-zinc-900/50"
+      className="section-padding dot-pattern-bg"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">

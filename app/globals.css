@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-:root {
+:root,
+:root.light {
   --background: #ffffff;
   --foreground: #0a0a0a;
   --accent: #6366f1;
@@ -23,15 +24,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
-    --accent: #818cf8;
-    --accent-light: #a5b4fc;
-    --muted: #a1a1aa;
-    --border: #27272a;
-  }
+:root.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --accent: #818cf8;
+  --accent-light: #a5b4fc;
+  --muted: #a1a1aa;
+  --border: #27272a;
 }
 
 body {
@@ -155,17 +154,17 @@ body {
 }
 
 .glass-effect {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
-@media (prefers-color-scheme: dark) {
-  .glass-effect {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
+:root.dark .glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
 .section-padding {
@@ -182,4 +181,88 @@ body {
   .section-padding {
     padding: 10rem 3rem;
   }
+}
+
+.mesh-gradient-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.mesh-gradient-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.12) 0px, transparent 50%);
+  animation: meshMove 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+:root.dark .mesh-gradient-bg::before {
+  background:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.06) 0px, transparent 50%);
+}
+
+.mesh-gradient-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes meshMove {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1) translate(2%, 2%);
+    opacity: 0.9;
+  }
+}
+
+.dot-pattern-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.dot-pattern-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgba(236, 72, 153, 0.25) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(99, 102, 241, 0.2) 1px, transparent 1px);
+  background-size: 40px 40px, 20px 20px;
+  background-position: 0 0, 20px 20px;
+  z-index: 0;
+  opacity: 0.7;
+  animation: dotMove 30s linear infinite;
+}
+
+:root.dark .dot-pattern-bg::before {
+  background:
+    radial-gradient(circle, rgba(236, 72, 153, 0.2) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(99, 102, 241, 0.18) 1px, transparent 1px);
+  background-size: 40px 40px, 20px 20px;
+  background-position: 0 0, 20px 20px;
+  opacity: 0.6;
+}
+
+@keyframes dotMove {
+  0% {
+    background-position: 0 0, 20px 20px;
+  }
+  100% {
+    background-position: 40px 40px, 60px 60px;
+  }
+}
+
+.dot-pattern-bg > * {
+  position: relative;
+  z-index: 1;
 }
